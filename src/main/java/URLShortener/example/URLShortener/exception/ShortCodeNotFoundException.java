@@ -1,4 +1,8 @@
 package URLShortener.example.URLShortener.exception;
 
-public class ShortCodeNotFoundException {
+public class ShortCodeNotFoundException extends RuntimeException{
+
+    public ShortCodeNotFoundException(String shortCode){
+        super("Short code not found : " + shortCode) ;
+    }
 }

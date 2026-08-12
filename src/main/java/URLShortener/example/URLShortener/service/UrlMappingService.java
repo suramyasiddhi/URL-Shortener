@@ -1,6 +1,7 @@
 package URLShortener.example.URLShortener.service;
 
 import URLShortener.example.URLShortener.entity.UrlMapping;
+import URLShortener.example.URLShortener.exception.ShortCodeNotFoundException;
 import URLShortener.example.URLShortener.repository.UrlMappingRepository;
 import URLShortener.example.URLShortener.util.ShortCodeGenerator;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,8 @@ public class UrlMappingService {
     public String getLongUrl(String shortCode){
         Optional<UrlMapping> mapping = repository.findByShortCode(shortCode) ;
 
-        return mapping.orElseThrow().getLongUrl() ;
+        return mapping.orElseThrow(() -> new ShortCodeNotFoundException(shortCode))
+                .getLongUrl() ;
     }
 
 }
